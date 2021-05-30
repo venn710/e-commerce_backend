@@ -10,7 +10,7 @@ const rout=express.Router()
 con()
 app.get('/',(req,res)=>{
     console.log("HIIIIIIIIIII")
-    res.send("Hello world...")
+    res.send("Hello world...!!")
 })
 app.get('/:category/:type',async(req,res)=>
 {
