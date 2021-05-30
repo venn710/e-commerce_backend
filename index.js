@@ -11,6 +11,24 @@ app.get('/',(req,res)=>{
     console.log("HIIIIIIIIIII")
     res.send("Hello world...!!")
 })
+app.get('/users',async function(req,res)
+{
+   console.log("CAME To users@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+    try
+    {
+    const user_data=require('./user_schema/user')
+    console.log(user_data)
+    user_data.find({}).exec(function(err,data)
+    {
+        // res.send("jiiiii")
+        // res.json(data)
+        res.send(data)
+    })}
+    catch(err)
+    {
+        console.log("ERROr")
+    }
+})
 app.get('/:category/:type',async(req,res)=>
 {
     const category=req.params.category
@@ -35,23 +53,6 @@ app.get('/:category/:type',async(req,res)=>
         console.log("CANNOT FIND THOSE ITEMS")
     }
 
-})
-app.get('/users',async function(req,res)
-{
-   console.log("CAME To users@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
-    try
-    {
-    const user_data=require('./user_schema/user')
-    user_data.find({}).exec(function(err,data)
-    {
-        // res.send("jiiiii")
-        // res.json(data)
-        res.send(data)
-    })}
-    catch(err)
-    {
-        console.log("ERROr")
-    }
 })
 app.get("*", (req, res) => {
     console.log("HIIIIIIIIIIIIIIIIIII")
