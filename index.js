@@ -65,8 +65,8 @@ app.get("*", (req, res) => {
     res.status(404).send("oops cant find");
   });
   app.listen(process.env.PORT,()=>console.log("Startedddddddddddd"))
-app.listen(process.env.PORT, function () {
 
-  console.log("listening to port " + process.env.PORT);
 
-});
+
+
+
