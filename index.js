@@ -13,11 +13,8 @@ mongoose.connect(
         useUnifiedTopology:true,
         useFindAndModify: false,
     }
-    )
-    mongoose.connection.once("open", () => {
-        console.log("connecteddddddddddd to database");
-      });
-console.log("CONNECTED")
+    ).then(co => console.log('connected to mongodb..')).catch(e=>console.log('could not connect to mongodb', e))
+
 app.get('/',(req,res)=>{
     console.log("HIIIIIIIIIII")
     res.send("Hello world...!!")
