@@ -3,7 +3,7 @@ require('dotenv').config({path:"config.env"})
 const user_data=require('./user_schema/user')
 const product_data=require('./user_schema/product')
 const app=express()
-const port=process.env.port
+const port=process.env.PORT
 app.listen(port,()=>console.log("Startedddddddddddd"))
 const con=require('./db/connection')
 const rout=express.Router()
