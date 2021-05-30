@@ -13,6 +13,6 @@ await mongoose.connect(
     mongoose.connection.once("open", () => {
         console.log("connecteddddddddddd to database");
       });
-console.log("CONNECTED")
+// console.log("CONNECTED")
 }
 module.exports=connectDB;
