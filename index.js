@@ -8,7 +8,7 @@ app.listen(process.env.PORT,()=>console.log("Startedddddddddddd"))
 // const con=require('./db/connection')
 // con()
 mongoose.connect(
-    uri,
+    process.env.PORT,
     {
         useNewUrlParser:true,
         useUnifiedTopology:true,
