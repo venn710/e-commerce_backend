@@ -4,11 +4,10 @@ require('dotenv').config({path:"config.env"})
 const product_data=require('./user_schema/product')
 const app=express()
 const port=process.env.PORT
-app.listen(process.env.PORT,()=>console.log("Startedddddddddddd"))
 // const con=require('./db/connection')
 // con()
 mongoose.connect(
-    process.env.PORT,
+    process.env.mongo_url,
     {
         useNewUrlParser:true,
         useUnifiedTopology:true,
@@ -70,3 +69,4 @@ app.get("*", (req, res) => {
     console.log("HIIIIIIIIIIIIIIIIIII")
     res.status(404).send("oops cant find");
   });
+  app.listen(process.env.PORT,()=>console.log("Startedddddddddddd"))
