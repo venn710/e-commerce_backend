@@ -4,8 +4,6 @@ require('dotenv').config({path:"config.env"})
 const product_data=require('./user_schema/product')
 const app=express()
 const port=process.env.PORT
-// const con=require('./db/connection')
-// con()
 mongoose.connect(
     process.env.mongo_url,
     {
