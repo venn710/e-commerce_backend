@@ -1,5 +1,6 @@
 const mongoose=require('mongoose')
-const uri='mongodb+srv://venn:venn123@cluster0.ziajh.mongodb.net/test?retryWrites=true&w=majority'
+require('dotenv').config({path:"config.env"})
+const uri=process.env.mongo_url
 async function connectDB(){
 await mongoose.connect(
     uri,

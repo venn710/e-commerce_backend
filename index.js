@@ -1,8 +1,9 @@
 const express=require('express')
+require('dotenv').config({path:"config.env"})
 const user_data=require('./user_schema/user')
 const product_data=require('./user_schema/product')
 const app=express()
-const port=9000
+const port=process.env.port
 app.listen(port,()=>console.log("Startedddddddddddd"))
 const con=require('./db/connection')
 const rout=express.Router()
