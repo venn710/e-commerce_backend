@@ -1,6 +1,5 @@
 const express=require('express')
 require('dotenv').config({path:"config.env"})
-const user_data=require('./user_schema/user')
 const product_data=require('./user_schema/product')
 const app=express()
 const port=process.env.PORT
@@ -41,9 +40,10 @@ app.get('/users',async function(req,res)
 {
     try
     {
+    const user_data=require('./user_schema/user')
     user_data.find({}).exec(function(err,data)
     {
-        res.send("jiiiii")
+        // res.send("jiiiii")
         res.json(data)
         // res.send(data)
     })}
