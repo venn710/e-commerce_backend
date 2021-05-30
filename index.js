@@ -1,12 +1,24 @@
 const express=require('express')
+const mongoose=require('mongoose')
 require('dotenv').config({path:"config.env"})
 const product_data=require('./user_schema/product')
 const app=express()
 const port=process.env.PORT
 app.listen(process.env.PORT,()=>console.log("Startedddddddddddd"))
-const con=require('./db/connection')
-const rout=express.Router()
-con()
+// const con=require('./db/connection')
+// con()
+mongoose.connect(
+    uri,
+    {
+        useNewUrlParser:true,
+        useUnifiedTopology:true,
+        useFindAndModify: false,
+    }
+    )
+    mongoose.connection.once("open", () => {
+        console.log("connecteddddddddddd to database");
+      });
+console.log("CONNECTED")
 app.get('/',(req,res)=>{
     console.log("HIIIIIIIIIII")
     res.send("Hello world...!!")
