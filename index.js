@@ -3,7 +3,7 @@ require('dotenv').config({path:"config.env"})
 const product_data=require('./user_schema/product')
 const app=express()
 const port=process.env.PORT
-app.listen(port,()=>console.log("Startedddddddddddd"))
+app.listen(process.env.PORT,()=>console.log("Startedddddddddddd"))
 const con=require('./db/connection')
 const rout=express.Router()
 con()
@@ -38,6 +38,7 @@ app.get('/:category/:type',async(req,res)=>
 })
 app.get('/users',async function(req,res)
 {
+    console.log("CAME To users@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
     try
     {
     const user_data=require('./user_schema/user')
@@ -52,4 +53,6 @@ app.get('/users',async function(req,res)
         console.log("ERROr")
     }
 })
-
+app.get("*", (req, res) => {
+    res.status(404).send("oops cant find");
+  });
