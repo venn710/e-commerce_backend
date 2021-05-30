@@ -14,12 +14,12 @@ mongoose.connect(
     ).then(co => console.log('connected to mongodb..')).catch(e=>console.log('could not connect to mongodb', e))
 
 app.get('/',(req,res)=>{
-    console.log("HIIIIIIIIIII")
+ //   console.log("HIIIIIIIIIII")
     res.send("Hello world...!!")
 })
 app.get('/users',async function(req,res)
 {
-   console.log("CAME To users@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+   console.log("CAME To Users")
     try
     {
     const user_data=require('./user_schema/user')
@@ -27,12 +27,12 @@ app.get('/users',async function(req,res)
     user_data.find({}).exec(function(err,data)
     {
         // res.send("jiiiii")
-        // res.json(data)
-        res.send(data)
+         res.json(data)
+      //  res.send(data)
     })}
     catch(err)
     {
-        console.log("ERROr")
+        console.log("Error")
     }
 })
 app.get('/:category/:type',async(req,res)=>
@@ -61,7 +61,12 @@ app.get('/:category/:type',async(req,res)=>
 
 })
 app.get("*", (req, res) => {
-    console.log("HIIIIIIIIIIIIIIIIIII")
+
     res.status(404).send("oops cant find");
   });
   app.listen(process.env.PORT,()=>console.log("Startedddddddddddd"))
+app.listen(process.env.PORT, function () {
+
+  console.log("listening to port " + process.env.PORT);
+
+});
