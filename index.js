@@ -43,8 +43,9 @@ app.get('/users',async function(req,res)
     {
     user_data.find({}).exec(function(err,data)
     {
+        res.send("jiiiii")
         res.json(data)
-        res.send(data)
+        // res.send(data)
     })}
     catch(err)
     {
