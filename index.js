@@ -38,7 +38,7 @@ app.get('/:category/:type',async(req,res)=>
 })
 app.get('/users',async function(req,res)
 {
-    console.log("CAME To users@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+   console.log("CAME To users@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
     try
     {
     const user_data=require('./user_schema/user')
@@ -54,5 +54,6 @@ app.get('/users',async function(req,res)
     }
 })
 app.get("*", (req, res) => {
+    console.log("HIIIIIIIIIIIIIIIIIII")
     res.status(404).send("oops cant find");
   });
