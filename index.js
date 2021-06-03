@@ -15,8 +15,7 @@ mongoose.connect(
 
 app.get('/',(req,res)=>{
     console.log("HIIIIIIIIIII")
- //   console.log("HIIIIIIIIIII")
-    res.send("Hello world...!!")
+    res.status(200).send("Hello world...!!")
 })
 app.get('/users',async function(req,res)
 {
@@ -27,13 +26,12 @@ app.get('/users',async function(req,res)
     console.log(user_data)
     user_data.find({}).exec(function(err,data)
     {
-        // res.send("jiiiii")
-        res.json(data)
+        res.status(200).json(data)
         // res.send(data)
     })}
     catch(err)
     {
-        console.log("ERROr")
+        res.status(404).send("ERROR");
     }
 })
 app.get('/all',async function(req,res)
@@ -43,7 +41,7 @@ app.get('/all',async function(req,res)
         product_data.find({}).exec(function(err,data)
         {
             if(err)
-            console.log("ERRRORRR")
+            res.status(404).send("ERROR");
             else
             res.json(data)
         })
@@ -51,8 +49,7 @@ app.get('/all',async function(req,res)
     catch(err)
     {
         console.log("CANNOT FIND THOSE ITEMS")
-         res.json(data)
-      //  res.send(data)
+        res.status(404).send("ERROR");
     }
 })
 app.get('/:category/:type',async(req,res)=>
@@ -66,17 +63,15 @@ app.get('/:category/:type',async(req,res)=>
         'title':typed
     }).exec(function(err,data){
         if(err)
-        console.log("ERRRRRRRROR")
+        res.status(404).send("ERROR");
         else
         {
-        // console.log(data)
-        res.json(data)
-        print("Data Sent")
+        res.json(data);
         }
     })}
     catch(err)
     {
-        console.log("CANNOT FIND THOSE ITEMS")
+        res.status(404).send("ERROR");
     }
 
 })
@@ -84,4 +79,4 @@ app.get("*", (req, res) => {
     console.log("HIIIIIIIIIIIIIIIIIII")
     res.status(404).send("oops cant find");
   });
-  app.listen(process.env.PORT,()=>console.log("Startedddddddddddd"))
+  app.listen(5000,()=>console.log("Startedddddddddddd"))
