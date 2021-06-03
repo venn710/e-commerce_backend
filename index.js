@@ -1,16 +1,56 @@
 const express=require('express')
+const mongoose=require('mongoose')
 require('dotenv').config({path:"config.env"})
-const user_data=require('./user_schema/user')
 const product_data=require('./user_schema/product')
 const app=express()
 const port=process.env.PORT
-app.listen(port,()=>console.log("Startedddddddddddd"))
-const con=require('./db/connection')
-const rout=express.Router()
-con()
+mongoose.connect(
+    process.env.mongo_url,
+    {
+        useNewUrlParser:true,
+        useUnifiedTopology:true,
+        useFindAndModify: false,
+    }
+    ).then(co => console.log('connected to mongodb..')).catch(e=>console.log('could not connect to mongodb', e))
+
 app.get('/',(req,res)=>{
     console.log("HIIIIIIIIIII")
-    res.send("Hello world")
+    res.send("Hello world...!!")
+})
+app.get('/users',async function(req,res)
+{
+   console.log("CAME To users@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+    try
+    {
+    const user_data=require('./user_schema/user')
+    console.log(user_data)
+    user_data.find({}).exec(function(err,data)
+    {
+        // res.send("jiiiii")
+        // res.json(data)
+        res.send(data)
+    })}
+    catch(err)
+    {
+        console.log("ERROr")
+    }
+})
+app.get('/all',async function(req,res)
+{
+    try
+    {
+        product_data.find({}).exec(function(err,data)
+        {
+            if(err)
+            console.log("ERRRORRR")
+            else
+            res.json(data)
+        })
+    }
+    catch(err)
+    {
+        console.log("CANNOT FIND THOSE ITEMS")
+    }
 })
 app.get('/:category/:type',async(req,res)=>
 {
@@ -37,17 +77,8 @@ app.get('/:category/:type',async(req,res)=>
     }
 
 })
-app.get('/users',async function(req,res)
-{
-    try
-    {
-    user_data.find({}).exec(function(err,data)
-    {
-        res.json(data)
-    })}
-    catch(err)
-    {
-        console.log("ERROr")
-    }
-})
-
+app.get("*", (req, res) => {
+    console.log("HIIIIIIIIIIIIIIIIIII")
+    res.status(404).send("oops cant find");
+  });
+  app.listen(process.env.PORT,()=>console.log("Startedddddddddddd"))
