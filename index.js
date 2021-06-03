@@ -3,9 +3,9 @@ const mongoose=require('mongoose')
 require('dotenv').config({path:"config.env"})
 const product_data=require('./user_schema/product')
 const app=express()
-const port=process.env.PORT
+const port=5000
 mongoose.connect(
-    process.env.mongo_url,
+    "mongodb+srv://venn:venn123@cluster0.ziajh.mongodb.net/test?retryWrites=true&w=majority",
     {
         useNewUrlParser:true,
         useUnifiedTopology:true,
@@ -15,24 +15,31 @@ mongoose.connect(
 
 app.get('/',(req,res)=>{
     console.log("HIIIIIIIIIII")
-    res.send("Hello world...!!")
+<<<<<<< HEAD
+=======
+ //   console.log("HIIIIIIIIIII")
+>>>>>>> 637144e0d52bfbab780733c1dcc15459b1494ec9
+    res.status(200).send("Hello world...!!")
 })
 app.get('/users',async function(req,res)
 {
-   console.log("CAME To users@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+   console.log("CAME To Users")
     try
     {
     const user_data=require('./user_schema/user')
     console.log(user_data)
     user_data.find({}).exec(function(err,data)
     {
+<<<<<<< HEAD
+=======
         // res.send("jiiiii")
-        // res.json(data)
-        res.send(data)
+>>>>>>> 637144e0d52bfbab780733c1dcc15459b1494ec9
+        res.status(200).json(data)
+        // res.send(data)
     })}
     catch(err)
     {
-        console.log("ERROr")
+        res.status(404).send("ERROR");
     }
 })
 app.get('/all',async function(req,res)
@@ -42,7 +49,7 @@ app.get('/all',async function(req,res)
         product_data.find({}).exec(function(err,data)
         {
             if(err)
-            console.log("ERRRORRR")
+            res.status(404).send("ERROR");
             else
             res.json(data)
         })
@@ -50,6 +57,7 @@ app.get('/all',async function(req,res)
     catch(err)
     {
         console.log("CANNOT FIND THOSE ITEMS")
+        res.status(404).send("ERROR");
     }
 })
 app.get('/:category/:type',async(req,res)=>
@@ -63,17 +71,21 @@ app.get('/:category/:type',async(req,res)=>
         'title':typed
     }).exec(function(err,data){
         if(err)
-        console.log("ERRRRRRRROR")
+        res.status(404).send("ERROR");
         else
         {
+<<<<<<< HEAD
+        res.json(data);
+=======
         // console.log(data)
         res.json(data)
-        print("Data Sent")
+        console.log("p");
+>>>>>>> 637144e0d52bfbab780733c1dcc15459b1494ec9
         }
     })}
     catch(err)
     {
-        console.log("CANNOT FIND THOSE ITEMS")
+        res.status(404).send("ERROR");
     }
 
 })
@@ -81,4 +93,4 @@ app.get("*", (req, res) => {
     console.log("HIIIIIIIIIIIIIIIIIII")
     res.status(404).send("oops cant find");
   });
-  app.listen(process.env.PORT,()=>console.log("Startedddddddddddd"))
+  app.listen(5000,()=>console.log("Startedddddddddddd"))

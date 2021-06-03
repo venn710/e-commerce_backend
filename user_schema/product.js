@@ -1,6 +1,5 @@
 const mongoose=require('mongoose')
 let schema=mongoose.Schema({
-    _id:mongoose.Schema.Types.ObjectId,
     brand:String,
     id:String,
     description:String,
