@@ -15,11 +15,12 @@ mongoose.connect(
 
 app.get('/',(req,res)=>{
     console.log("HIIIIIIIIIII")
+ //   console.log("HIIIIIIIIIII")
     res.send("Hello world...!!")
 })
 app.get('/users',async function(req,res)
 {
-   console.log("CAME To users@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+   console.log("CAME To Users")
     try
     {
     const user_data=require('./user_schema/user')
@@ -27,8 +28,8 @@ app.get('/users',async function(req,res)
     user_data.find({}).exec(function(err,data)
     {
         // res.send("jiiiii")
-        // res.json(data)
-        res.send(data)
+        res.json(data)
+        // res.send(data)
     })}
     catch(err)
     {
@@ -50,6 +51,8 @@ app.get('/all',async function(req,res)
     catch(err)
     {
         console.log("CANNOT FIND THOSE ITEMS")
+         res.json(data)
+      //  res.send(data)
     }
 })
 app.get('/:category/:type',async(req,res)=>
