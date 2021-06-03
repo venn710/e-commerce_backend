@@ -3,9 +3,9 @@ const mongoose=require('mongoose')
 require('dotenv').config({path:"config.env"})
 const product_data=require('./user_schema/product')
 const app=express()
-const port=5000
+const port=process.env.PORT
 mongoose.connect(
-    "mongodb+srv://venn:venn123@cluster0.ziajh.mongodb.net/test?retryWrites=true&w=majority",
+    process.env.mongo_url,
     {
         useNewUrlParser:true,
         useUnifiedTopology:true,
@@ -15,10 +15,6 @@ mongoose.connect(
 
 app.get('/',(req,res)=>{
     console.log("HIIIIIIIIIII")
-<<<<<<< HEAD
-=======
- //   console.log("HIIIIIIIIIII")
->>>>>>> 637144e0d52bfbab780733c1dcc15459b1494ec9
     res.status(200).send("Hello world...!!")
 })
 app.get('/users',async function(req,res)
@@ -30,10 +26,6 @@ app.get('/users',async function(req,res)
     console.log(user_data)
     user_data.find({}).exec(function(err,data)
     {
-<<<<<<< HEAD
-=======
-        // res.send("jiiiii")
->>>>>>> 637144e0d52bfbab780733c1dcc15459b1494ec9
         res.status(200).json(data)
         // res.send(data)
     })}
@@ -74,23 +66,16 @@ app.get('/:category/:type',async(req,res)=>
         res.status(404).send("ERROR");
         else
         {
-<<<<<<< HEAD
         res.json(data);
-=======
-        // console.log(data)
-        res.json(data)
-        console.log("p");
->>>>>>> 637144e0d52bfbab780733c1dcc15459b1494ec9
         }
     })}
     catch(err)
     {
         res.status(404).send("ERROR");
     }
-
 })
 app.get("*", (req, res) => {
     console.log("HIIIIIIIIIIIIIIIIIII")
     res.status(404).send("oops cant find");
   });
-  app.listen(5000,()=>console.log("Startedddddddddddd"))
+  app.listen(port,()=>console.log("Startedddddddddddd"))
