@@ -3,9 +3,9 @@ const mongoose=require('mongoose')
 require('dotenv').config({path:"config.env"})
 const product_data=require('./user_schema/product')
 const app=express()
-const port=process.env.PORT
+const port=5000
 mongoose.connect(
-    process.env.mongo_url,
+    "mongodb+srv://venn:venn123@cluster0.ziajh.mongodb.net/test?retryWrites=true&w=majority",
     {
         useNewUrlParser:true,
         useUnifiedTopology:true,
@@ -16,7 +16,7 @@ mongoose.connect(
 app.get('/',(req,res)=>{
     console.log("HIIIIIIIIIII")
  //   console.log("HIIIIIIIIIII")
-    res.send("Hello world...!!")
+    res.status(200).send("Hello world...!!")
 })
 app.get('/users',async function(req,res)
 {
@@ -28,7 +28,7 @@ app.get('/users',async function(req,res)
     user_data.find({}).exec(function(err,data)
     {
         // res.send("jiiiii")
-        res.json(data)
+        res.status(200).json(data)
         // res.send(data)
     })}
     catch(err)
@@ -71,7 +71,7 @@ app.get('/:category/:type',async(req,res)=>
         {
         // console.log(data)
         res.json(data)
-        print("Data Sent")
+        console.log("p");
         }
     })}
     catch(err)
