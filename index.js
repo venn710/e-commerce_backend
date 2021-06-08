@@ -52,7 +52,7 @@ app.get('/all',async function(req,res)
         res.status(404).send("ERROR");
     }
 })
-app.get('products/:category/:type',async(req,res)=>
+app.get('/products/:category/:type',async(req,res)=>
 {
     const category=req.params.category
     const typed=req.params.type
