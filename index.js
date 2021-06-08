@@ -4,11 +4,9 @@ require('dotenv').config({path:"config.env"})
 const product_data=require('./user_schema/product')
 const cart_data=require('./user_schema/cart_Prods')
 const app=express()
-// const port=process.env.PORT
-port =5000
+const port=process.env.PORT
 mongoose.connect(
-    // process.env.mongo_url,
-    'mongodb+srv://venn:venn123@cluster0.ziajh.mongodb.net/test?retryWrites=true&w=majority',
+    process.env.mongo_url,
     {
         useNewUrlParser:true,
         useUnifiedTopology:true,
@@ -108,7 +106,6 @@ app.use(express.urlencoded({
   }));
 app.post('/',function(req,res)
 {
-    // console.log(req.body);
     var new_prod= new product_data(req.body)
     new_prod.save(function(err,data)
     {
