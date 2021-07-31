@@ -4,9 +4,9 @@ require('dotenv').config({path:"config.env"})
 const product_data=require('./user_schema/product')
 const cart_data=require('./user_schema/cart_Prods')
 const app=express()
-const port=process.env.PORT
+const port=5000
 mongoose.connect(
-    process.env.mongo_url,
+    'mongodb+srv://venn:venn123@cluster0.ziajh.mongodb.net/test?retryWrites=true&w=majority',
     {
         useNewUrlParser:true,
         useUnifiedTopology:true,
@@ -122,22 +122,41 @@ app.post('/',function(req,res)
 })
 app.post('/cart',function(req,res)
 {
-    var cart= new cart_data(req.body)
-    // print(req.body)
-    cart.save(
-        function(err,data)
+    console.log(req.body['usermail'])
+    cart_data.countDocuments({'usermail':req.body['usermail']},function(err,count)
+    {
+        if(count>0)
         {
-            if(err)
+            cart_data.find({}).where({'usermail':req.body['usermail']}).updateOne(
+                {$push:{'products':req.body['products']}}
+            ).then(function(err)
             {
-                console.log("ERROr")
-                res.status(200).send("An Error Ocuured")
+                if(err)
+                res.status(404).send(err)
+                else
+                res.send("Updated Successfully")
+            })        
         }
         else
         {
-            console.log("SUCCESSFULLY INSERTED")
-            res.status(200).send("POsted")
-        }
+                var cart= new cart_data(req.body)
+        cart.save(
+            function(err,data)
+            {
+                if(err)
+                {
+                    console.log("ERROr")
+                    res.status(200).send("An Error Ocuured")
+                }
+            else
+            {
+                console.log("SUCCESSFULLY INSERTED New Person Cart")
+                res.status(200).send("POsted")
+            }
     }
     )
+        }
+
+    })
 })
   app.listen(port,()=>console.log("Startedddddddddddd"))
