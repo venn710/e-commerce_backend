@@ -5,9 +5,9 @@ const product_data=require('./user_schema/product')
 const cart_data=require('./user_schema/cart_Prods')
 const orders_data=require('./user_schema/orders')
 const app=express()
-const port=5000
+const port=process.env.PORT
 mongoose.connect(
-    'mongodb+srv://venn:venn123@cluster0.ziajh.mongodb.net/test?retryWrites=true&w=majority',
+    process.env.mongo_url
     {
         useNewUrlParser:true,
         useUnifiedTopology:true,
