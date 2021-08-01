@@ -4,6 +4,8 @@ require('dotenv').config({path:"config.env"})
 const product_data=require('./user_schema/product')
 const cart_data=require('./user_schema/cart_Prods')
 const orders_data=require('./user_schema/orders')
+const user_data=require('./user_schema/user')
+const user = require('./user_schema/user')
 const app=express()
 const port=process.env.PORT
 mongoose.connect(
@@ -23,7 +25,6 @@ app.get('/users',async function(req,res)
    console.log("CAME To Users")
     try
     {
-    const user_data=require('./user_schema/user')
     console.log(user_data)
     user_data.find({}).exec(function(err,data)
     {
@@ -184,7 +185,7 @@ app.post('/orders',function(req,res)
     {
         if(count>0)
         {
-            cart_data.find({}).where({'usermail':req.body['usermail']}).updateOne(
+            orders_data.find({}).where({'usermail':req.body['usermail']}).updateOne(
                 {$push:{'products':req.body['products']}}
             ).then(function(err)
             {
@@ -198,6 +199,45 @@ app.post('/orders',function(req,res)
         {
             var ords= new orders_data(req.body)
             ords.save(
+            function(err,data)
+            {
+                if(err)
+                {
+                    console.log("ERROr")
+                    res.status(200).send("An Error Ocuured")
+                }
+            else
+            {
+                console.log("SUCCESSFULLY INSERTED New Order")
+                res.status(200).send("POsted")
+            }
+    }
+    )
+        }
+
+    })
+})
+app.post('/user',function(req,res)
+{
+    console.log(req.body['usermail'])
+    user_data.countDocuments({'usermail':req.body['usermail']},function(err,count)
+    {
+        if(count>0)
+        {
+            user_data.find({}).where({'usermail':req.body['usermail']}).updateOne(
+                {$push:{'':req.body['products']}}
+            ).then(function(err)
+            {
+                if(err)
+                res.status(404).send(err)
+                else
+                res.send("Orders Updated Successfully")
+            })        
+        }
+        else
+        {
+            var newuser= new user_data(req.body)
+            newuser.save(
             function(err,data)
             {
                 if(err)
