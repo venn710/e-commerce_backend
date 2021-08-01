@@ -219,19 +219,20 @@ app.post('/orders',function(req,res)
 })
 app.post('/user',function(req,res)
 {
-    console.log(req.body['usermail'])
-    user_data.countDocuments({'usermail':req.body['usermail']},function(err,count)
+    console.log(req.body['email'])
+    user_data.countDocuments({'email':req.body['email']},function(err,count)
     {
         if(count>0)
         {
-            user_data.find({}).where({'usermail':req.body['usermail']}).updateOne(
-                {$push:{'':req.body['products']}}
+            console.log("have there and came")
+            user_data.find({}).where({'email':req.body['email']}).updateOne(
+                {$set:{'address':req.body['address']}}
             ).then(function(err)
             {
                 if(err)
                 res.status(404).send(err)
                 else
-                res.send("Orders Updated Successfully")
+                res.send("User Updated Successfully")
             })        
         }
         else
@@ -247,7 +248,7 @@ app.post('/user',function(req,res)
                 }
             else
             {
-                console.log("SUCCESSFULLY INSERTED New Order")
+                console.log("SUCCESSFULLY INSERTED New User")
                 res.status(200).send("POsted")
             }
     }
