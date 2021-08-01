@@ -7,7 +7,7 @@ const orders_data=require('./user_schema/orders')
 const app=express()
 const port=process.env.PORT
 mongoose.connect(
-    process.env.mongo_url
+    process.env.mongo_url,
     {
         useNewUrlParser:true,
         useUnifiedTopology:true,
