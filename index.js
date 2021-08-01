@@ -5,6 +5,7 @@ const product_data=require('./user_schema/product')
 const cart_data=require('./user_schema/cart_Prods')
 const orders_data=require('./user_schema/orders')
 const user_data=require('./user_schema/user')
+const address_data=require('./user_schema/address_schema')
 const user = require('./user_schema/user')
 const app=express()
 const port=process.env.PORT
@@ -93,6 +94,23 @@ app.get('/cart/:usermail',async(req,res)=>{
         res.status(404).send(err)
     }
 })
+app.get('/address/:usermail',async(req,res)=>{
+    const mail=req.params.usermail
+    console.log(mail)
+    try{
+        address_data.find({}).where({'usermail':mail}).exec((err,data)=>
+        {
+            if(err)
+            res.status(404).send(err)
+            else
+            res.json(data)
+        })
+    }
+    catch(err)
+    {
+        res.status(404).send(err)
+    }
+})
 app.get('/orders/:usermail',async(req,res)=>{
     const mail=req.params.usermail
     console.log(mail)
@@ -127,6 +145,22 @@ app.post('/',function(req,res)
 {
     var new_prod= new product_data(req.body)
     new_prod.save(function(err,data)
+    {
+        if(err)
+        {
+            console.log(err)
+            res.status(200).send("An Error Occured")
+        }
+        else{
+        console.log("SUCCESSFULLY INSERTED")
+        res.status(200).send("POsted")
+        }
+    })
+})
+app.post('/address',function(req,res)
+{
+    var addr= new address_data(req.body)
+    addr.save(function(err,data)
     {
         if(err)
         {
@@ -244,7 +278,7 @@ app.post('/user',function(req,res)
                 if(err)
                 {
                     console.log("ERROr")
-                    res.status(200).send("An Error Ocuured")
+                    res.status(200).send(err)
                 }
             else
             {
