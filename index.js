@@ -7,6 +7,7 @@ const orders_data=require('./user_schema/orders')
 const user_data=require('./user_schema/user')
 const address_data=require('./user_schema/address_schema')
 const user = require('./user_schema/user')
+const { ObjectID } = require('mongodb')
 const app=express()
 const port=process.env.PORT
 mongoose.connect(
@@ -85,8 +86,9 @@ app.get('/cart/:usermail',async(req,res)=>{
         {
             if(err)
             res.status(404).send(err)
-            else
+            else{
             res.json(data)
+               }
         })
     }
     catch(err)
@@ -176,6 +178,9 @@ app.post('/address',function(req,res)
 app.post('/cart',function(req,res)
 {
     console.log(req.body['usermail'])
+    req.body['products'].unique_id=mongoose.Types.ObjectId().toString()
+    // req.body['unique_id']=
+    console.log(req.body)
     cart_data.countDocuments({'usermail':req.body['usermail']},function(err,count)
     {
         if(count>0)
@@ -192,7 +197,7 @@ app.post('/cart',function(req,res)
         }
         else
         {
-                var cart= new cart_data(req.body)
+        var cart= new cart_data(req.body)
         cart.save(
             function(err,data)
             {
@@ -291,4 +296,40 @@ app.post('/user',function(req,res)
 
     })
 })
+app.put('/cart',function(req,res)
+{
+    var uni_id=req.body['uni_id']
+    console.log(req.body)
+    console.log(res)
+    cart_data.find({}).where({'usermail':req.body['usermail']}).updateOne(
+        {"products.unique_id":uni_id}, 
+        {'$set': {"products.$.quant": req.body['updatedquant'] }},
+        function(err) {
+            if(err)
+            {
+                console.log(err)
+                res.status(200).send("Error")
+            }
+            else
+            console.log("Updated")
+              res.status(200).send("Updated")
+        }
+)
+})
+app.delete('/cart',function(req,res)
+{
+    console.log(req.body)
+    cart_data.find({}).where({'usermail':req.body['usermail']}).updateOne(
+        {'$pull': {"products":{"unique_id":req.body['uni_id']}}},
+        function(err) {
+            if(err)
+            {
+                console.log(err)
+                res.status(200).send("Error")
+            }
+            else
+            console.log("Updated")
+              res.status(200).send("Updated")
+        })
+    })
   app.listen(port,()=>console.log("Startedddddddddddd"))
