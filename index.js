@@ -303,7 +303,7 @@ app.put('/cart',function(req,res)
     console.log(res)
     cart_data.find({}).where({'usermail':req.body['usermail']}).updateOne(
         {"products.unique_id":uni_id}, 
-        {'$set': {"products.$.quant": req.body['updatedquant'] }},
+        {'$set': {"products.$.quantity": req.body['updatedquant'] }},
         function(err) {
             if(err)
             {
