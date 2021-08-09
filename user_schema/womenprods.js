@@ -8,4 +8,4 @@ let schema=mongoose.Schema({
     title:String,
     price:Number
 })
-module.exports=mongoose.model('maleproducts',schema)
+module.exports=mongoose.model('womenproducts',schema)

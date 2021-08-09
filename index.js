@@ -1,7 +1,8 @@
 const express=require('express')
 const mongoose=require('mongoose')
 require('dotenv').config({path:"config.env"})
-const product_data=require('./user_schema/product')
+const men_product_data=require('./user_schema/product')
+const wom_product_data=require('./user_schema/womenprods')
 const cart_data=require('./user_schema/cart_Prods')
 const orders_data=require('./user_schema/orders')
 const user_data=require('./user_schema/user')
@@ -37,22 +38,44 @@ app.get('/users',async function(req,res)
         res.status(404).send("ERROR");
     }
 })
-app.get('/all',async function(req,res)
+app.get('/:gend/all',async function(req,res)
 {
-    try
+    var ptype=req.params.gend
+    if(ptype=='Men')
     {
-        product_data.find({}).exec(function(err,data)
+        try
         {
-            if(err)
+            men_product_data.find({}).exec(function(err,data)
+            {
+                if(err)
+                res.status(404).send("ERROR");
+                else
+                res.json(data)
+            })
+        }
+        catch(err)
+        {
+            console.log("CANNOT FIND THOSE ITEMS")
             res.status(404).send("ERROR");
-            else
-            res.json(data)
-        })
+        }
     }
-    catch(err)
+    else if(ptype=='Women')
     {
-        console.log("CANNOT FIND THOSE ITEMS")
-        res.status(404).send("ERROR");
+        try
+        {
+            wom_product_data.find({}).exec(function(err,data)
+            {
+                if(err)
+                res.status(404).send("ERROR");
+                else
+                res.json(data)
+            })
+        }
+        catch(err)
+        {
+            console.log("CANNOT FIND THOSE ITEMS")
+            res.status(404).send("ERROR");
+        }
     }
 })
 app.get('/products/:category/:type',async(req,res)=>
@@ -142,21 +165,40 @@ app.use(express.urlencoded({
     urlencoded:true,
     limit:'100mb',
   }));
-app.post('/',function(req,res)
+app.post('/:gend',function(req,res)
 {
-    var new_prod= new product_data(req.body)
-    new_prod.save(function(err,data)
-    {
-        if(err)
+    var type=req.params.gend
+    if(type=='Men'){
+        var new_prod= new men_product_data(req.body)
+        new_prod.save(function(err,data)
         {
-            console.log(err)
-            res.status(200).send("An Error Occured")
-        }
-        else{
-        console.log("SUCCESSFULLY INSERTED")
-        res.status(200).send("POsted")
-        }
-    })
+            if(err)
+            {
+                console.log(err)
+                res.status(200).send("An Error Occured")
+            }
+            else{
+            console.log("SUCCESSFULLY INSERTED")
+            res.status(200).send("POsted")
+            }
+        })
+    }
+    else if(type=="Women")
+    {
+        var new_prod= new wom_product_data(req.body)
+        new_prod.save(function(err,data)
+        {
+            if(err)
+            {
+                console.log(err)
+                res.status(200).send("An Error Occured")
+            }
+            else{
+            console.log("SUCCESSFULLY INSERTED")
+            res.status(200).send("POsted")
+            }
+        })
+    }
 })
 app.post('/address',function(req,res)
 {
