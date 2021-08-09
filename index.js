@@ -82,22 +82,44 @@ app.get('/products/:category/:type',async(req,res)=>
 {
     const category=req.params.category
     const typed=req.params.type
-    try
-    {
-    product_data.find({}).where({
-        'id':category,
-        'title':typed
-    }).exec(function(err,data){
-        if(err)
-        res.status(404).send("ERROR");
-        else
+    if(category=='Men'){
+        try
         {
-        res.json(data)
+        men_product_data.find({}).where({
+            'id':category,
+            'title':typed
+        }).exec(function(err,data){
+            if(err)
+            res.status(404).send("ERROR");
+            else
+            {
+            res.json(data)
+            }
+        })}
+        catch(err)
+        {
+            res.status(404).send("ERROR");
         }
-    })}
-    catch(err)
+    }
+    else if(category=='Women')
     {
-        res.status(404).send("ERROR");
+        try
+        {
+        wom_product_data.find({}).where({
+            'id':category,
+            'title':typed
+        }).exec(function(err,data){
+            if(err)
+            res.status(404).send("ERROR");
+            else
+            {
+            res.json(data)
+            }
+        })}
+        catch(err)
+        {
+            res.status(404).send("ERROR");
+        }
     }
 })
 app.get('/cart/:usermail',async(req,res)=>{
