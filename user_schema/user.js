@@ -1,7 +1,7 @@
 const mongoose=require('mongoose')
 let schema=mongoose.Schema({
     email:String,
-    pass:Array,
+    pass:String,
     address:Map,
     isadmin:Boolean
 })
