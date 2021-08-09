@@ -7,7 +7,6 @@ const orders_data=require('./user_schema/orders')
 const user_data=require('./user_schema/user')
 const address_data=require('./user_schema/address_schema')
 const user = require('./user_schema/user')
-const { ObjectID } = require('mongodb')
 const app=express()
 const port=process.env.PORT
 mongoose.connect(
