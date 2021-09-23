@@ -8,6 +8,7 @@ const orders_data=require('./user_schema/orders')
 const user_data=require('./user_schema/user')
 const address_data=require('./user_schema/address_schema')
 const user = require('./user_schema/user')
+const allprods=require('./user_schema/all_prods')
 const app=express()
 const port=process.env.PORT
 mongoose.connect(
@@ -208,7 +209,6 @@ app.post('/cart',function(req,res)
     console.log("came to post")
     console.log(req.body['usermail'])
     req.body['products'].unique_id=mongoose.Types.ObjectId().toString()
-    // req.body['unique_id']=
     console.log(req.body)
     cart_data.countDocuments({'usermail':req.body['usermail']},function(err,count)
     {
@@ -329,6 +329,41 @@ app.post('/:gend',function(req,res)
 {
     var type=req.params.gend
     if(type=='Men'){
+        allprods.countDocuments({'id':'Men'},function(err,count)
+        {
+            if(count>0)
+            {
+                allprods.find({}).where({'id':'Men'}).updateOne(
+                    {$push:{'products':req.body['products']}}
+                ).then(function(err)
+                {
+                    if(err)
+                    res.status(404).send(err)
+                    else
+                    res.send("Updated Successfully")
+                })        
+            }
+            else
+            {
+            var new_product= new allprods(req.body)
+            new_product.save(
+                function(err,data)
+                {
+                    if(err)
+                    {
+                        console.log("ERROr")
+                        res.status(200).send("An Error Ocuured")
+                    }
+                else
+                {
+                    console.log("SUCCESSFULLY INSERTED New Person Cart")
+                    res.status(200).send("POsted")
+                }
+        }
+        )
+            }
+    
+        })
         var new_prod= new men_product_data(req.body)
         new_prod.save(function(err,data)
         {
@@ -345,6 +380,41 @@ app.post('/:gend',function(req,res)
     }
     else if(type=="Women")
     {
+        allprods.countDocuments({'id':'Women'},function(err,count)
+        {
+            if(count>0)
+            {
+                allprods.find({}).where({'id':'Women'}).updateOne(
+                    {$push:{'products':req.body['products']}}
+                ).then(function(err)
+                {
+                    if(err)
+                    res.status(404).send(err)
+                    else
+                    res.send("Updated Successfully")
+                })        
+            }
+            else
+            {
+            var new_product= new allprods(req.body)
+            new_product.save(
+                function(err,data)
+                {
+                    if(err)
+                    {
+                        console.log("ERROr")
+                        res.status(200).send("An Error Ocuured")
+                    }
+                else
+                {
+                    console.log("SUCCESSFULLY INSERTED New Person Cart")
+                    res.status(200).send("POsted")
+                }
+        }
+        )
+            }
+    
+        })
         var new_prod= new wom_product_data(req.body)
         new_prod.save(function(err,data)
         {
