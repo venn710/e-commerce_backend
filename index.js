@@ -46,7 +46,7 @@ app.get('/:gend/all',async function(req,res)
     {
         try
         {
-            men_product_data.find({}).exec(function(err,data)
+            allprods.find({'id':'Men'}).exec(function(err,data)
             {
                 if(err)
                 res.status(404).send("ERROR");
@@ -64,7 +64,7 @@ app.get('/:gend/all',async function(req,res)
     {
         try
         {
-            wom_product_data.find({}).exec(function(err,data)
+            allprods.find({'id':'Women'}).exec(function(err,data)
             {
                 if(err)
                 res.status(404).send("ERROR");
