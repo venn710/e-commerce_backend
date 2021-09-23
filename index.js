@@ -364,19 +364,19 @@ app.post('/:gend',function(req,res)
             }
     
         })
-        // var new_prod= new men_product_data(req.body)
-        // new_prod.save(function(err,data)
-        // {
-        //     if(err)
-        //     {
-        //         console.log(err)
-        //         res.status(200).send("An Error Occured")
-        //     }
-        //     else{
-        //     console.log("SUCCESSFULLY INSERTED")
-        //     res.status(200).send("POsted")
-        //     }
-        // })
+        var new_prod= new men_product_data(req.body)
+        new_prod.save(function(err,data)
+        {
+            if(err)
+            {
+                console.log(err)
+                res.status(200).send("An Error Occured")
+            }
+            else{
+            console.log("SUCCESSFULLY INSERTED")
+            res.status(200).send("POsted")
+            }
+        })
     }
     else if(type=="Women")
     {
@@ -415,19 +415,19 @@ app.post('/:gend',function(req,res)
             }
     
         })
-        // var new_prod= new wom_product_data(req.body)
-        // new_prod.save(function(err,data)
-        // {
-        //     if(err)
-        //     {
-        //         console.log(err)
-        //         res.status(200).send("An Error Occured")
-        //     }
-        //     else{
-        //     console.log("SUCCESSFULLY INSERTED")
-        //     res.status(200).send("POsted")
-        //     }
-        // })
+        var new_prod= new wom_product_data(req.body)
+        new_prod.save(function(err,data)
+        {
+            if(err)
+            {
+                console.log(err)
+                res.status(200).send("An Error Occured")
+            }
+            else{
+            console.log("SUCCESSFULLY INSERTED")
+            res.status(200).send("POsted")
+            }
+        })
     }
 })
 app.put('/cart',function(req,res)
