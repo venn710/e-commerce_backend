@@ -364,7 +364,7 @@ app.post('/:gend',function(req,res)
             }
     
         })
-        var new_prod= new men_product_data(req.body)
+        var new_prod= new men_product_data(req.body['products'])
         new_prod.save(function(err,data)
         {
             if(err)
@@ -396,7 +396,7 @@ app.post('/:gend',function(req,res)
             }
             else
             {
-            var new_product= new allprods(req.body)
+            var new_product= new allprods(req.body['products'])
             new_product.save(
                 function(err,data)
                 {
