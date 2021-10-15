@@ -81,6 +81,8 @@ app.get('/:gend/all',async function(req,res)
 })
 app.get('/products/:category/:type',async(req,res)=>
 {
+    const { page =1 }=req.query
+    const limit=6
     const category=req.params.category
     const typed=req.params.type
     if(category=='Men'){
@@ -89,7 +91,7 @@ app.get('/products/:category/:type',async(req,res)=>
         men_product_data.find({}).where({
             'id':category,
             'title':typed
-        }).exec(function(err,data){
+        }).limit(limit).skip((page-1)*limit).exec(function(err,data){
             if(err)
             res.status(404).send("ERROR");
             else
