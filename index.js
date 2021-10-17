@@ -82,7 +82,7 @@ app.get('/:gend/all',async function(req,res)
 app.get('/products/:category/:type',async(req,res)=>
 {
     const { page =1 }=req.query
-    const limit=6
+    const limit=10
     const category=req.params.category
     const typed=req.params.type
     if(category=='Men'){
