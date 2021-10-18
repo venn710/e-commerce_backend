@@ -12,7 +12,7 @@ const allprods=require('./user_schema/all_prods')
 const app=express()
 const port=process.env.PORT
 const admin=require('firebase-admin')
-// const ServiceAccount=require('./servicefiles.json')
+const ServiceAccount=require('./servicefiles.js')
 // admin.initializeApp(
 //     {
 //         credential:admin.credential.cert(ServiceAccount)
@@ -185,8 +185,7 @@ app.get('/orders/:usermail',async(req,res)=>{
     }
 })
 app.get("*", (req, res) => {
-    res.status(200).send(process.env.keys)
-    // res.status(404).send("oops cant find");
+    res.status(404).send("oops cant find");
   });
 app.use(express.json(
     {
