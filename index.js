@@ -11,8 +11,8 @@ const user = require('./user_schema/user')
 const allprods=require('./user_schema/all_prods')
 const app=express()
 const port=process.env.PORT
-// const admin=require('firebase-admin')
-// const ServiceAccount=require('./servicefiles.json')
+const admin=require('firebase-admin')
+const ServiceAccount=require('./servicefiles.json')
 // admin.initializeApp(
 //     {
 //         credential:admin.credential.cert(ServiceAccount)
