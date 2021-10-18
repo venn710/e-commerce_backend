@@ -11,6 +11,13 @@ const user = require('./user_schema/user')
 const allprods=require('./user_schema/all_prods')
 const app=express()
 const port=process.env.PORT
+const admin=require('firebase-admin')
+const ServiceAccount=require('./servicefiles.json')
+admin.initializeApp(
+    {
+        credential:admin.credential.cert(ServiceAccount)
+    }
+)
 mongoose.connect(
 process.env.mongo_url,
     {
@@ -468,4 +475,38 @@ app.delete('/cart',function(req,res)
               res.status(200).send("Updated")
         })
     })
+    app.post('/notification/general', async function (req, res) {
+        console.log("came to Notifications")
+        try {
+            await sendnot(req, res);
+        }
+        catch (err) {
+            res.status(200).send(err)
+        }
+    })
+    async function sendnot(req, res) {
+        var ev=req.body['event']
+        var title=req.body['title']
+        var body=req.body['body']
+        try {
+            const message = {
+                notification: {
+                    title:title,
+                    body: body,
+                },
+                android: {
+                  notification: {
+                    color: '#7e55c3',
+                    imageUrl: 'https://cdn-icons-png.flaticon.com/512/4522/4522555.png',
+                  }
+                },
+                topic:ev,
+              };
+            await admin.messaging().send(message)
+            res.status(200).send("SUCCESS")
+        }
+        catch (err) {
+            res.status(200).send(err);
+        }
+    }
   app.listen(port,()=>console.log("Started the server"))
