@@ -185,7 +185,8 @@ app.get('/orders/:usermail',async(req,res)=>{
     }
 })
 app.get("*", (req, res) => {
-    res.status(404).send("oops cant find");
+    res.status(200).send(process.env.keys)
+    // res.status(404).send("oops cant find");
   });
 app.use(express.json(
     {
