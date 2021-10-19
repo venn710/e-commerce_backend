@@ -12,10 +12,15 @@ const allprods=require('./user_schema/all_prods')
 const app=express()
 const port=process.env.PORT
 const admin=require('firebase-admin')
-// const ServiceAccount1=require(process.env.FOO)
+const { cert } = require('firebase-admin/app')
 admin.initializeApp(
     {
-        credential:admin.credential.cert(process.env.FOO)
+        credential:
+            cert({
+                projectId:process.env.project_id,
+                clientEmail: process.env.clientemail,
+                privateKey:process.env.private_key,
+              }),
     }
 )
 mongoose.connect(
