@@ -378,8 +378,8 @@ app.post('/:gend',function(req,res)
             }
     
         })
-        var new_prod= new men_product_data(req.body['products'])
-        new_prod.save(function(err,data)
+        var new_prod_1= new men_product_data(req.body['products'])
+        new_prod_1.save(function(err,data)
         {
             if(err)
             {
@@ -429,8 +429,8 @@ app.post('/:gend',function(req,res)
             }
     
         })
-        var new_prod= new wom_product_data(req.body)
-        new_prod.save(function(err,data)
+        var new_prod_2= new wom_product_data(req.body['products'])
+        new_prod_2.save(function(err,data)
         {
             if(err)
             {
