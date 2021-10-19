@@ -13,11 +13,11 @@ const app=express()
 const port=process.env.PORT
 const admin=require('firebase-admin')
 // const ServiceAccount1=require(process.env.FOO)
-// admin.initializeApp(
-//     {
-//         credential:admin.credential.cert(ServiceAccount1)
-//     }
-// )
+admin.initializeApp(
+    {
+        credential:admin.credential.cert(process.env.FOO)
+    }
+)
 mongoose.connect(
 process.env.mongo_url,
     {
