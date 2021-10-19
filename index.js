@@ -19,7 +19,7 @@ admin.initializeApp(
             cert({
                 projectId:process.env.project_id,
                 clientEmail: process.env.clientemail,
-                privateKey:"-----BEGIN PRIVATE KEY-----"+process.env.private_key+"-----END PRIVATE KEY-----\n",
+                privateKey:process.env.private_key.replace(/\\n/g, '\n'),
               }),
     }
 )
