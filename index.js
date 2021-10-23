@@ -222,7 +222,6 @@ app.post('/cart',function(req,res)
 {
     console.log("came to post")
     console.log(req.body['usermail'])
-    req.body['products'].unique_id=mongoose.Types.ObjectId().toString()
     console.log(req.body)
     cart_data.countDocuments({'usermail':req.body['usermail']},function(err,count)
     {
